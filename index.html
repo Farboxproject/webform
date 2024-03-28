@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airdrop Base Flamingos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+  <div class="box-container">
+   <div class="box">
+  <div class="form-container">
+    <form name="submit-to-google-sheet" class="hidden">
+      <header>
+        <img src="logo.png" alt="Header Image">
+            <h1>Airdrop Base Flamingos</h1>
+            <p>Total reward: 5% of the supply, which is 50,000,000,000 $BFG</p>
+        </header>
+        <label for="twitter">Twitter Handle:</label><br>
+        <input type="text" id="twitter" name="twitter" placeholder="@example" required><br><br>
+        <label for="retweet">Retweet Link:</label><br>
+        <input type="text" id="retweet" name="retweet" placeholder="https://twitter.com/example" required><br><br>
+        <label for="wallet">Base Wallet:</label><br>
+        <input type="text" id="wallet" name="wallet" placeholder="0x" required><br><br>
+        <input type="submit" value="Submit"><br>
+        <span id="success"></span>
+    </form>
+    </div>
+
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxCQZjwlX1CMMta95EwX4Vo00K1rtpM-9AscHuPV3WwloWpkUMnmUyYQKHOkO_jDBF2/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const success = document.getElementById('success');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => {
+        success.innerHTML="Your answers have been recorded!!";
+        
+        setTimeout(function()
+          {
+            success.innerHTML="";
+          },5000)
+          form.reset();
+      })
+      .catch(error => console.error('Error!', error.message))
+  })
+  
+// JavaScript
+const inputs = document.querySelectorAll('input[type="text"]');
+
+inputs.forEach(input => {
+    input.addEventListener('focus', function() {
+        inputs.forEach(otherInput => {
+            if (otherInput !== input) {
+                otherInput.style.opacity = '0.5'; // Mengurangi opasitas input yang tidak difokuskan
+            }
+        });
+    });
+
+    input.addEventListener('blur', function() {
+        inputs.forEach(otherInput => {
+            if (otherInput !== input) {
+                otherInput.style.opacity = '1'; // Mengembalikan opasitas input ke nilai semula saat tidak difokuskan
+            }
+        });
+    });
+});
+
+// JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('loaded'); // Tambahkan kelas 'loaded' ke body setelah DOM dimuat
+});
+
+
+</script>
+
+</body>
+</html>
